@@ -1,0 +1,83 @@
+Javascript dahulu hanya bisa berjalan disisi front end dan disisi user/client
+sebagai gambaran 
+
+Javascript`````
+-CLIENT------> FRONTEND ------> BROWSER {jd sblm node js itu ada pada 2009 Javascript itu berjalan disisi client aja}
+
+2009: Ryan Dahl memperkenalkan Node.js dengan tujuan mengatasi beberapa keterbatasan model pemrograman server tradisional, terutama dalam hal skalabilitas dan penanganan banyak permintaan secara bersamaan
+
+
+
+NODE.JS
+-SERVER {setelah adanya node js javascript bisa berjalan disisi server }
+
+
+flow nya sprti apa??
+
+{   NODE.JS(Server) <========>  API  <=======>  JAVASCRIPT( client -- frontend -- browser )  }
+
+
+
+
+
+npm init    >>>>{digunakan untuk memulai proyek Node.js baru dengan membuat file konfigurasi yang disebut package.json. File package.json ini sangat penting karena berfungsi untuk menyimpan metadata tentang proyek, seperti nama proyek, versi, dependensi, skrip, dan lainnya.}
+
+package name    : (backend) backend
+version         : (v1.0.0)
+description     :
+entry point     : (index.js)
+test command    :
+git repository  : //jika ada
+keywords        : 
+author          : rey 
+license         : (ISC)
+
+data diatas untuk dimasukkan kedalam package.json
+
+ "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    }
+
+
+
+
+ketika kita menggunakan framework node.js yaitu si express.js dengan ( npm i express ) maka folder dari node modules dan file package-lock.json akan muncul.
+
+
+
+dan untukb dependency ialah macam library dan framework yang kita gunakan akan disimpan dalam package.json pada dependency.
+
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node index.js
+}
+
+dan diatas adalaha contoh penerapan nodemon jdai pda npm kita tinggal npm start agar otomatis ter refresh gaperlu stop running ketika adanya perubahan
+
+
+
+
+
+
+materi seblmnya day seven dlu dibahas
+Routing.. 
+
+pembahasan api harus menggunakan cors di backend api kita sendiri agar tdk kena block cors
+(integrasi si api wajib use cors)
+
+
+dan jika untuk menampilkan method get (url localhost pada back end si index)
+kl mau method post,edit,and delete harus menggunakan API 
+platform/testing API : postman, thunder Client(di vscode) , atau insomnia api
+
+
+infokan macam macam respon status
+Informational responses (100 – 199)
+Successful responses (200 – 299)
+Redirection messages (300 – 399)
+Client error responses (400 – 499)
+Server error responses (500 – 599)
