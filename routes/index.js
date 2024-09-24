@@ -1,6 +1,6 @@
 const express = require ("express"); //import same as on react
 const { getMovies, getMoviesById, insertMovies, editMovies, deleteMovies } = require("../controllers/movies");
-const { getStudioFilm } = require("../controllers/studios");
+const { getStudiosFilm, getStudiosById } = require("../controllers/studios");
 const router = express.Router();
 
 //movie
@@ -11,7 +11,8 @@ router.patch('/movie/:id', editMovies )
 router.delete('/movie/:id', deleteMovies )
 
 //studioFilm
-router.get('/studioFilm', getStudioFilm)
+router.get('/studiosFilm', getStudiosFilm) 
+router.get('/studiosFilm/:id', getStudiosById) 
 
 
 

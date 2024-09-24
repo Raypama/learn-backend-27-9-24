@@ -1,0 +1,64 @@
+
+
+-- (( dbwh ini query show all data ))
+-- SELECT id, title, genre, release_date FROM movie;
+-- SELECT * FROM movie;
+-- SELECT * FROM movie order by id asc;
+-- SELECT * FROM movie order by created_at desc;
+
+-- (ini untuk nambah data)
+-- INSERT INTO movie ( title, genre, release_date, studios_id) VALUES ( 'picky blinders', 'action', 'sept-2021' , 1);
+
+
+-- (INI UNUTK EDIT//UPDATE DATA)
+-- id=?, title=?, genre=?, release_date=?
+-- UPDATE movie SET title='immortal disaster', genre='thriller,action', release_date='sept-2021' WHERE id= 3;
+-- UPDATE movie SET studios_id= 5 WHERE id= 20;
+
+
+
+--((Ini UNTUK DELETE DATA, REComen pake id))
+-- delete from movie where id = 6;
+
+
+--------------------------------------------------------------------------------------------------------
+
+-- Query and,or,not untuk show data
+-- SELECT * FROM movie WHERE release_date = 'sept-2021' AND genre LIKE 'action%';
+-- SELECT * FROM movie WHERE genre = 'talkpod' or genre ='berita';
+-- SELECT * FROM movie WHERE not genre = 'berita';
+
+
+
+--=========================================================
+
+-- (( dbwh ini query show all data ))
+-- SELECT id, title, genre, release_date FROM movie;
+-- SELECT * FROM studios;
+-- SELECT * FROM studios order by id asc;
+-- SELECT * FROM studios order by created_at desc;
+
+-- (ini untuk nambah data)
+-- INSERT INTO studios ( name, address) VALUES ( 'Sony Pictures Studios', 'Culver City, CA 90232, USA');
+
+
+-- (INI UNUTK EDIT//UPDATE DATA)
+-- id=?, title=?, genre=?, release_date=?
+-- UPDATE studios SET title='immortal disaster', genre='thriller,action', release_date='sept-2021' WHERE id= 3;
+
+
+--((Ini UNTUK DELETE DATA, REComen pake id))
+-- studios from studios where id = 6;
+
+
+--------------------------------------------------------------------------------------------------------
+
+-- Query and,or,not untuk show data
+-- SELECT * FROM studios WHERE release_date = 'sept-2021' AND genre LIKE 'action%';
+-- SELECT * FROM studios WHERE genre = 'talkpod' or genre ='berita';
+-- SELECT * FROM studios WHERE not genre = 'berita';
+
+-- SELECT * FROM movie;
+-- SELECT * FROM studios;
+-- select title, genre, release_date, studios.name as studio_production  FROM movie LEFT JOIN studios 
+-- on studios.id = movie.studios_id ;

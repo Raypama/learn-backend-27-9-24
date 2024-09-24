@@ -1,114 +1,200 @@
 /* const { request } = require("express"); */
 
-const movie = [
-    {
-        id: 1,
-        title: "Ex-man",
-        releaseDate: 2009
-    },
-    {
-        id: 2,
-        title: "ruby golf",
-        releaseDate: 2019
-    },
-    {
-        id: 3,
-        title: "kick andy's",
-        releaseDate: 2016
-    },
-    {
-        id: 4,
-        title: "liputan6",
-        releaseDate: 2020
+// const movie = [
+//     {
+//         id: 1,
+//         title: "Ex-man",
+//         releaseDate: 2009
+//     },
+//     {
+//         id: 2,
+//         title: "ruby golf",
+//         releaseDate: 2019
+//     },
+//     {
+//         id: 3,
+//         title: "kick andy's",
+//         releaseDate: 2016
+//     },
+//     {
+//         id: 4,
+//         title: "liputan6",
+//         releaseDate: 2020
+//     }
+
+// ]
+
+// const connection = require("../db/connection")
+const { where } = require("sequelize");
+const { movies } = require("../models")
+exports.getMovies = async (req, res) => {
+    try {
+        const result = await movies.findAll() //buat get semua keyword pada data movies
+        const resulty = await movies.findAll({
+            attributes: [ // buat ngambil sebagian keyword
+                "title"
+            ]
+        });
+        const resultyy = await movies.findAll({
+            attributes: { // buat ngecualiin sebagian keyword
+                exclude: ["title"]
+            }
+        });
+
+        res.status(200).json({
+            codeStatus: "200",
+            movieList: result,
+            message: "success"
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            codeStatus: "500",
+            message: "Server error",
+            error: error.message
+        });
     }
+};
 
-]
+exports.getMoviesById = async (req, res) => {
+    const ID = parseInt(req.params.id)
+    // const findMoviesById = movie.find((item) => item.id == ID)//output  object
+    try {
 
-exports.getMovies = (req,res) => {
-    res.json({
-        movieList: movie,
-        massage : "succes"
-    })
+        const findId = await movies.findByPk(ID);
+        // const findIdd = await movies.findOne({ where: {id:ID} });
+        if (findId) {
+            res.status(200).json({
+                code: 200,
+                findId,
+                message: "Movie found",
+            });
+        } else {
+            res.status(404).json({
+                code: 404,
+                message: `movies id : ${ID} is not found`,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            code: 500,
+            message: "An error occurred"
+        });
+    }
 }
 
-exports.getMoviesById = (req,res) => {
-    
-    const ID = parseInt(req.params.id)
-    const findMoviesById = movie.find((item) => item.id == ID)//output  object
-    
-    console.log(findMoviesById);
-    
-    if (!findMoviesById) {
-        
-        res.status(404).json({
-            code: 404,
-            massage : `id : ${ID} is not found  `
+
+
+
+exports.insertMovies = async (req, res) => {
+
+
+    try {
+
+        const newMovie = {
+            title: req.body.title,
+            genre: req.body.genre,
+            release_years: parseInt(req.body.release_years),
+            studios_id: req.body.studios_id
+        }
+
+        const result = await movies.create(newMovie)
+
+        // console.log(result);
+
+        res.status(201).json({ //status insert biasanya 201
+            code: 201,
+            movieList: result,
+            massage: "add to movie list succes"
         })
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            code: 500,
+            message: "An error occurred"
+        });
     }
 
-    res.json({
-        movieList: findMoviesById,
-        massage : "succes"
-    })
-}
 
-exports.insertMovies = (req,res) => {
-   const ID = movie.length +1
-   const newMovie = {
-    id : ID,
-    title : req.body.title,
-    releaseDate : req.body.releaseDate
-   }
-/*    console.log(newMovie);
-   console.log(req.body);
- */   
-    res.status(201).json({ //status insert biasanya 201
-        code :201,
-        movieList : newMovie,
-        massage : "add to movie list succes"
-    })
 }
 
 
-exports.editMovies = (req,res) => {
+exports.editMovies = async (req, res) => {
     const ID = parseInt(req.params.id)
-    const indexMovie = movie.findIndex((item) => item.id == ID)//
+    const updateMovie = {
+        title: req.body.title,
+        genre: req.body.genre,
+        release_years: parseInt(req.body.release_years),
+        studios_id: req.body.studios_id
+        // ID: parseInt(req.params.id)
+    }
     
-    console.log(indexMovie);
-    const findMoviesById = movie.find((item) => item.id == ID)//output  object
+// console.log(updateMovie);
 
-    if (!findMoviesById) {//bissa dijadikan function
-        
-        res.status(404).json({
-            code: 404,
-            massage : `id : ${ID} is not found  `
+    try {
+
+        const result = await movies.update(updateMovie, { where: { id: ID } })
+
+
+        if (result[0] === 0) { // Sequelize `update` mengembalikan array, elemen pertama adalah jumlah baris yang diperbarui
+            return res.status(404).json({
+                code: 404,
+                message: `id: ${ID} is not found`
+            });
+        }
+        //hanya nampilin saat di update pada respon.json
+        const updatedMovie = await movies.findOne({ where: { id: ID } });
+        res.status(200).json({
+            codeStatus: 200,
+            movieUpdated: updatedMovie,
+            massage: "succes"
         })
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            code: 500,
+            message: "An error occurred"
+        });
     }
-    movie[indexMovie].title = req.body.title
-    movie[indexMovie].releaseDate = req.body.releaseDate
-    
-
-    res.status(200).json({
-        movieList: movie[indexMovie],
-        massage : "editted succes"
-    })
 }
 
 
-exports.deleteMovies = (req,res) => {
-    const ID = parseInt(req.params.id)
-    const indexMovie = movie.findIndex((item) => item.id == ID)
-    
-    console.log(indexMovie);
+exports.deleteMovies = async (req, res) => {
+    const ID = parseInt(req.params.id);
 
-  movie.splice(indexMovie, 1)
-    
+    try {
+        const movieToDelete = await movies.findByPk(ID);
 
-    res.status(200).json({
-        massage : `id: ${ID} deleted succes`
-    })
+        // Mengecek apakah film ada?
+        if (!movieToDelete) {
+            return res.status(404).json({
+                code: 404,
+                message: `id: ${ID} is not found`
+            });
+        }
+
+        
+        await movies.destroy({
+            where: { id: ID }
+        });
+
+        // ngirim data ke respon.json
+        res.json({
+            codeStatus: 200,
+            deletedMovie: movieToDelete, // Mengembalikan data film yang dihapus
+            message: "deleted success"
+        });
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            code: 500,
+            message: "An error occurred"
+        });
+    }
 }
-
-
