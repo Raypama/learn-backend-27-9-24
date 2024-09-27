@@ -99,11 +99,24 @@ npx sequelize-cli db:create //untuk membuat folder db jika blm membuat data di p
 npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string  //untuk bikin colum pada tabel dan createdAt dan updateAt dan id sudah otomatis terbuat dan otomatis terisi data
 
 
-
-
+//seeder
+npx sequelize-cli seed:generate --name <nama file migrations>
 
 
 
 
 perbedaan patch dan put,  kl patch lebih felxible bisa sebagian atau salahsatu keywords
 , sedangkan put harus semua keywords
+
+
+
+
+
+kl untuk menghitung berhubungan dengan nominal uang lebih better memakai float()/decimal aja karena kan dia ada koma koma nya 
+
+
+
+
+mines:    teble user, table transaksi, table theatre
+
+table transaksi liart struk bioskop di web.
