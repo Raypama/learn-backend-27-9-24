@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('transaction', {
+    await queryInterface.createTable('transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,13 +14,31 @@ module.exports = {
         type: Sequelize.DATE
       },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { //tambahkan disemua relasi yg ada
+          model: 'users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      theater_id: {
-        type: Sequelize.INTEGER
+      theater_id: {//note belongsto waijib pake references
+        type: Sequelize.INTEGER,
+        references: { //tambahkan disemua relasi yg ada
+          model: 'theaters',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      movie_id: {
-        type: Sequelize.INTEGER
+      movie_id:{
+        type: Sequelize.INTEGER,
+        references: { //tambahkan disemua relasi yg ada
+          model: 'movies',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       price: {
         type: Sequelize.FLOAT
@@ -38,6 +56,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('transaction');
+    await queryInterface.dropTable('transactions');
   }
 };

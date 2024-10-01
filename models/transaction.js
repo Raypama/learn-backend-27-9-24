@@ -28,16 +28,17 @@ module.exports = (sequelize, DataTypes) => {
     movie_id: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
     quantity: DataTypes.INTEGER,
-    total: {
-      type: DataTypes.FLOAT,
-      // Set sebagai virtual field
-      // Hanya digunakan untuk perhitungan dalam model
-      get() {
-        const price = this.getDataValue('price');
-        const quantity = this.getDataValue('quantity');
-        return price * quantity; // Menghitung total
-      }
-    }
+    total: DataTypes.FLOAT,
+    // total: {
+    //   type: DataTypes.FLOAT,
+    //   // Set sebagai virtual field
+    //   // Hanya digunakan untuk perhitungan dalam model
+    //   get() {
+    //     const price = this.getDataValue('price');
+    //     const quantity = this.getDataValue('quantity');
+    //     return price * quantity; // Menghitung total
+    //   }
+    // }
   }, {
     hooks: {
       beforeCreate: (transaction, options) => {

@@ -117,6 +117,10 @@ kl untuk menghitung berhubungan dengan nominal uang lebih better memakai float()
 
 
 
-mines:    teble user, table transaksi, table theatre
 
-table transaksi liart struk bioskop di web.
+
+
+
+hasOne output cuma satu saja. gamungkin keluar bbeberapa kali only one
+hasMany output array atau yg kemungkinan tampil banyak banget
+belongsTo output object tapi harus direfrence di file migration.

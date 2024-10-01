@@ -14,7 +14,7 @@ const movieSchema = Joi.object({
         'string.empty': 'genre is required'
     })
 })
-
+//URGENT
 
 //middleWare untuk error
 

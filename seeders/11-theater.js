@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('theater', [
+    return queryInterface.bulkInsert('theaters', [
       {
         theaterName: 'mall slipi',
         createdAt: new Date(),

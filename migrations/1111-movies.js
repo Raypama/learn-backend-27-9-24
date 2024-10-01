@@ -28,7 +28,7 @@ module.exports = {
       },
       studios_id:{
         type: Sequelize.INTEGER,
-        references: {
+        references: { //tambahkan disemua relasi yg ada
           model: 'studios',
           key: 'id',
         },

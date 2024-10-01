@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       movies.belongsTo(models.studios, {
         foreignKey: 'studios_id'
       });
+      movies.hasMany(models.transaction, {
+        foreignKey: 'movie_id'
+      });
       // movies.belongsTo(models.transaction, {
       //   foreignKey: 'id', // Tambahkan foreign 
       // });

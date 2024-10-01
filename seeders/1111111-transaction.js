@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('transaction', [
+    return queryInterface.bulkInsert('transactions', [
       {
         createdAt: new Date(new Date().toISOString().slice(0, 16)),
         user_id: 1,

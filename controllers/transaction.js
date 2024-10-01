@@ -83,20 +83,13 @@ exports.insertTransaction = async (req, res) => {
 
 
     try {
-
         const newTransaction = {
             user_id: req.body.user_id,
             theater_id: req.body.theater_id,
             movie_id: req.body.movie_id,
             price: req.body.price,
             quantity: req.body.quantity,
-            total: {
-                get() {
-                    const price = this.getDataValue('price');
-                    const quantity = this.getDataValue('quantity');
-                    return price * quantity; // Menghitung total
-                }
-            }
+            total:  req.body.price * req.body.quantity,//wajib dihandel di backEnd pennjumlahan dan semacamnya
         }
 
         const result = await transaction.create(newTransaction)

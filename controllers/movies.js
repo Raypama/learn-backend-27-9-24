@@ -124,7 +124,7 @@ exports.insertMovies = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error.name === 'SequelizeUniqueConstraintError');
+        // console.log(error.name === 'SequelizeUniqueConstraintError');
         if (error.name === 'SequelizeUniqueConstraintError') {
             res.status(400).json({
                 code: 400,
