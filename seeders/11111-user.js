@@ -20,13 +20,13 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        userName: 'John wall',
+        userName: 'micke wall',
         email: 'wall@mail.com',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        userName: 'shao kahn',
+        userName: 'kahn',
         email: 'kahn@mail.com',
         createdAt: new Date(),
         updatedAt: new Date(),

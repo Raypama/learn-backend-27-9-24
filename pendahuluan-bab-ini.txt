@@ -112,6 +112,7 @@ perbedaan patch dan put,  kl patch lebih felxible bisa sebagian atau salahsatu k
 
 
 
+
 kl untuk menghitung berhubungan dengan nominal uang lebih better memakai float()/decimal aja karena kan dia ada koma koma nya 
 
 
@@ -124,3 +125,28 @@ kl untuk menghitung berhubungan dengan nominal uang lebih better memakai float()
 hasOne output cuma satu saja. gamungkin keluar bbeberapa kali only one
 hasMany output array atau yg kemungkinan tampil banyak banget
 belongsTo output object tapi harus direfrence di file migration.
+
+
+
+
+
+//FILE UPLOAD
+//========================================================//
+fieldname   =	Field name specified in the form	
+originalname = Name of the file on the user's computer	
+encoding    = Encoding type of the file	
+mimetype    = Mime type of the file	
+size        = Size of the file in bytes	
+destination	= The folder to which the file has been saved	(DiskStorage)
+filename	  = The name of the file within the destination	(DiskStorage)
+path	      = The full path to the uploaded file	        (DiskStorage)
+buffer	    = A Buffer of the entire file	              (MemoryStorage)
+
+.single(fieldname)
+Terima satu berkas dengan nama fieldname. Berkas tunggal akan disimpan dalam req.file.
+
+.array(fieldname[, maxCount])
+Terima serangkaian file, semuanya dengan nama fieldname. Opsional, kesalahan akan muncul jika lebih dari maxCountfile diunggah. Serangkaian file akan disimpan dalam req.files.
+
+.fields(fields)
+Terima campuran file, yang ditentukan oleh fields. Objek dengan array file akan disimpan dalam req.files.

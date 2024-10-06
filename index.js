@@ -70,6 +70,7 @@ const cors = require ("cors"); //import cors dlu
 const router = require("./routes");
 
 const app = express(); //cara menggunakan si corse ny
+app.use('/uploads', express.static('uploads')) // untuk buat path file upload
 app.use(express.json())//berfungsi untuk nangkap request body dari method post
 app.use(cors());
 app.use(router);

@@ -6,7 +6,10 @@ const { getUser, getUserById, insertUser } = require("../controllers/user");
 const {  getTransaction, getTransactionById, insertTransaction } = require("../controllers/transaction");
 const { validateMovie } = require("../validators/validatorsMovies");
 const { validateStudio } = require("../validators/validatorsStudios");
+const { insertTransactionNew, getTransactionNew } = require("../controllers/transaction_new");
+const { getProduct, getProductById, insertProduct, editProduct, deleteProduct } = require("../controllers/product");
 const router = express.Router();
+const upload = require("../middlewares/uploadFile");
 
 router.get('/', (req,res) => {
     res.send("hello world")
@@ -43,6 +46,16 @@ router.get('/transaction/:id', getTransactionById)
 router.post('/transaction', insertTransaction )
 // router.delete('/studioFilm/:id', deleteTransaction )
 
+//TransactonNew
+router.get('/transactionNew', getTransactionNew) 
+router.post('/transactionNew', insertTransactionNew )
+
+// product
+router.get('/product', getProduct)
+router.get('/product/:id', getProductById)
+router.post('/product', upload('image'), insertProduct )
+router.patch('/product', editProduct)
+router.delete('/product/:id', deleteProduct)
 
 
 module.exports = router
