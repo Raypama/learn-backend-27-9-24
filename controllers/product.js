@@ -1,13 +1,18 @@
-const {Product, user} = require("../models")
+const { Product, user } = require("../models")
 const deleteFile = require("../middlewares/deleteFile");
 
 const pathFile = 'http://localhost:8000/uploads/'
 
-exports.getProduct = async(req, res) => {
+exports.getProduct = async (req, res) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit
+    console.log(offset);
 
     try {
 
-        const result = await Product.findAll({
+        const { count, rows } = await Product.findAndCountAll({limit: limit, offset:offset},{
             attributes: {
                 exclude: ['userId']
             },
@@ -15,18 +20,25 @@ exports.getProduct = async(req, res) => {
                 model: user,
                 as: 'user',
                 attributes: {
-                    exclude: ['createdAt','updatedAt']
+                    exclude: ['createdAt', 'updatedAt']
                 }
             }
         })
 
-        const dataProducts = result.map((item) => {
+        const dataProducts = rows.map((item) => {
             const plainItem = item.get({ plain: true }); // Dapatkan objek biasa
             return { ...plainItem, image: pathFile + plainItem.image }; // Pastikan untuk mengakses plainItem.image
         });
-        
+
+        // count 30
+        // limit 5
+        // totalPage 3
+
         res.json({
             data: dataProducts,
+            totalItem: count,
+            totalPage: Math.ceil(count / limit),
+            currentPage: page,
             message: "success"
         })
 
@@ -39,10 +51,10 @@ exports.getProduct = async(req, res) => {
     }
 }
 
-exports.getProductById = async(req, res) => {
-    
+exports.getProductById = async (req, res) => {
+
     try {
-        
+
         const ID = parseInt(req.params.id)
         const result = await Product.findByPk(ID, {
             attributes: {
@@ -52,15 +64,15 @@ exports.getProductById = async(req, res) => {
                 model: user,
                 as: 'user',
                 attributes: {
-                    exclude: ['createdAt','updatedAt']
+                    exclude: ['createdAt', 'updatedAt']
                 }
             }
-        })        
+        })
 
         const plainItem = result.get({ plain: true });
-        const dataProduct = {...plainItem, image: pathFile + result.image}
+        const dataProduct = { ...plainItem, image: pathFile + result.image }
 
-        if(!result){
+        if (!result) {
             res.status(404).json({
                 code: 404,
                 message: `id ${ID} not found`
@@ -81,7 +93,7 @@ exports.getProductById = async(req, res) => {
     }
 }
 
-exports.insertProduct = async(req, res) => {
+exports.insertProduct = async (req, res) => {
     // console.log(req.file);
 
     try {
@@ -90,13 +102,13 @@ exports.insertProduct = async(req, res) => {
             price: req.body.price,
             stock: req.body.stock,
             image: req.file.filename,
-            userId: req.body.userId,
+            userId: req.user.id, // ngambil data dari token
 
         }
         // console.log(newProduct);
-    
+
         const result = await Product.create(newProduct)
-    
+
         res.status(201).json({
             code: 201,
             data: result,
@@ -111,7 +123,7 @@ exports.insertProduct = async(req, res) => {
     }
 }
 
-exports.editProduct = async(req, res) => {
+exports.editProduct = async (req, res) => {
 
     try {
         const editProduct = {
@@ -122,9 +134,9 @@ exports.editProduct = async(req, res) => {
 
         }
         // console.log(editProduct);
-    
-        const result = await Product.update(editProduct, {where: {id: ID}})
-    
+
+        const result = await Product.update(editProduct, { where: { id: ID } })
+
         res.status(200).json({
             code: 200,
             data: result,
@@ -138,29 +150,29 @@ exports.editProduct = async(req, res) => {
     }
 }
 
-exports.deleteProduct = async(req, res) => {
+exports.deleteProduct = async (req, res) => {
 
     try {
-        
+
         const ID = parseInt(req.params.id)
 
-        const result = await Product.findOne({ where: { id: ID } })        
-    
-        if(!result){
+        const result = await Product.findOne({ where: { id: ID } })
+
+        if (!result) {
             return res.status(404).json({
                 code: 404,
                 message: `id ${ID} not found`
             })
         }
-    
+
         await Product.destroy({
             where: {
-              id: ID,
+                id: ID,
             },
         });
 
         deleteFile(result.image) // fungsi untuk delete file
-    
+
         return res.status(200).json({
             message: "data berhasil dihapus"
         })

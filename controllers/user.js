@@ -1,7 +1,8 @@
-const { user,transaction } = require("../models");
+const { user, transaction } = require("../models");
 
 
 exports.getUser = async (req, res) => {
+    console.log(req.user);
 
     try {
         const result = await user.findAll() //buat get semua keyword pada data movies
@@ -12,15 +13,19 @@ exports.getUser = async (req, res) => {
         //     ]
         // });
         const resultyy = await user.findAll({
+            attributes: {
+                exclude: ['password']
+            },
+
             include: [{
                 model: transaction,
-                attributes:{
-                    exclude:['createdAt','updatedAt']
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
                 }
             }]
         });
         // console.log(resultyy.movies);
-        
+
         res.status(200).json({
             codeStatus: "200",
             user: resultyy,

@@ -10,6 +10,8 @@ const { insertTransactionNew, getTransactionNew } = require("../controllers/tran
 const { getProduct, getProductById, insertProduct, editProduct, deleteProduct } = require("../controllers/product");
 const router = express.Router();
 const upload = require("../middlewares/uploadFile");
+const { register, login } = require("../controllers/auth");
+const checkAuth = require("../middlewares/checkAuth");
 
 router.get('/', (req,res) => {
     res.send("hello world")
@@ -35,7 +37,7 @@ router.post('/theater', insertheater )
 // router.delete('/studioFilm/:id', deleteStudios )
 
 //user
-router.get('/user',getUser ) 
+router.get('/user',checkAuth ,getUser ) 
 router.get('/user/:id', getUserById) 
 router.post('/user', insertUser )
 // router.delete('/studioFilm/:id', deleteUser )
@@ -53,9 +55,14 @@ router.post('/transactionNew', insertTransactionNew )
 // product
 router.get('/product', getProduct)
 router.get('/product/:id', getProductById)
-router.post('/product', upload('image'), insertProduct )
+router.post('/product', checkAuth, upload('image'), insertProduct )
 router.patch('/product', editProduct)
 router.delete('/product/:id', deleteProduct)
+
+//register
+router.post('/register', register)
+//login
+router.post('/login', login)
 
 
 module.exports = router

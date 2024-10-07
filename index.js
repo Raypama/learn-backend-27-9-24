@@ -64,7 +64,7 @@ app.listen(8000,() => console.log('server is a running')); */
         name: "Sony Studios"
     }
 ]  */
-
+    require('dotenv').config()
 const express = require ("express"); //import same as on react
 const cors = require ("cors"); //import cors dlu
 const router = require("./routes");
