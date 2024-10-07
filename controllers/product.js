@@ -1,39 +1,5 @@
 const {Product, user} = require("../models")
-// exports.getProduct = async(req, res) => {
-
-//     try {
-
-//         const result = await Product.findAll({
-//             attributes: {
-//                 exclude: ['userId']
-//             },
-//             include: {
-//                 model: user,
-//                 as: 'user',
-//                 attributes: {
-//                     exclude: ['createdAt','updatedAt']
-//                 }
-//             }
-//         })
-
-//         const dataProducts = result.map((item) => {
-//             const plainItem = item.get({ plain: true }); // Dapatkan objek biasa
-//             return { ...plainItem, image: pathFile + plainItem.image }; // Pastikan untuk mengakses plainItem.image
-//         });
-        
-//         res.json({
-//             data: dataProducts,
-//             message: "success"
-//         })
-
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({
-//             code: 500,
-//             message: "internal server errror"
-//         })
-//     }
-// }
+const deleteFile = require("../middlewares/deleteFile");
 
 const pathFile = 'http://localhost:8000/uploads/'
 
