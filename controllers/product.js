@@ -34,6 +34,8 @@ exports.getProduct = async (req, res) => {
         // limit 5
         // totalPage 3
 
+        //pagination berguna untuk me
+
         res.json({
             data: dataProducts,
             totalItem: count,

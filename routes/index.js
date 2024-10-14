@@ -53,7 +53,7 @@ router.get('/transactionNew', getTransactionNew)
 router.post('/transactionNew', insertTransactionNew )
 
 // product
-router.get('/product', getProduct)
+router.get('/product', checkAuth, getProduct)
 router.get('/product/:id', getProductById)
 router.post('/product', checkAuth, upload('image'), insertProduct )
 router.patch('/product', editProduct)

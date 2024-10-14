@@ -9,8 +9,8 @@ exports.register = async (req, res) => {
     const saltRound = 10 // waktu hash/encrypt password perdetik -10 hash perdetik
     const encryptPassword = bcrypt.hashSync(password, saltRound)
 
-    console.log(password, 'without encrypt');
-    console.log(encryptPassword, 'with encrypt');
+    // console.log(password, 'without encrypt');
+    // console.log(encryptPassword, 'with encrypt');
 
     const newUser = {
         userName,
@@ -30,6 +30,8 @@ exports.register = async (req, res) => {
     })
 
 }
+
+
 exports.login = async (req, res) => {
 
 
@@ -51,7 +53,7 @@ exports.login = async (req, res) => {
     if(!isMatch){
         return res.status(400).json({
             code: 400,
-            message: `not a match`,
+            message: `email atau password false`,
             testing: 'pasw false'
         })
     }
@@ -74,7 +76,7 @@ exports.login = async (req, res) => {
             email: users.email,
             token: accessToken
         },
-        massage: "add to user succes"
+        massage: "login succes"
     })
 
 }

@@ -17,7 +17,7 @@ app.get('/clientUser', (req,res) => {
 })
 
 
-app.listen(8000,() => console.log('server is a running')); */   
+app.listen(8000,() => console.log('server is a running')); */
 //jalanin server
 
 
@@ -64,9 +64,9 @@ app.listen(8000,() => console.log('server is a running')); */
         name: "Sony Studios"
     }
 ]  */
-    require('dotenv').config()
-const express = require ("express"); //import same as on react
-const cors = require ("cors"); //import cors dlu
+require('dotenv').config()
+const express = require("express"); //import same as on react
+const cors = require("cors"); //import cors dlu
 const router = require("./routes");
 
 const app = express(); //cara menggunakan si corse ny
@@ -83,6 +83,6 @@ const PORT = 8000
 
 
 
-app.listen(PORT,() => console.log('server is a running'));
+app.listen(PORT, () => console.log('server is a running'));
 
 
